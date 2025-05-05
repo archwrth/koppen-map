@@ -39,17 +39,17 @@
 
     button#toggleOpacity {
       cursor: pointer;
-      background: #eee;
-      border: 1px solid #ccc;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 13px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      line-height: 1;
+      padding: 0;
     }
   </style>
 </head>
 <body>
   <div id="opacityWrapper">
-    <button id="toggleOpacity">Opacity</button>
+    <button id="toggleOpacity" title="Adjust opacity">🗂</button>
     <div id="opacityControls">
       <input type="range" id="opacitySlider" min="0" max="1" step="0.05" value="0.8" />
     </div>
@@ -67,7 +67,6 @@
       }
     ).addTo(map);
 
-    // Custom green icon
     const greenIcon = new L.Icon({
       iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
       shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -107,19 +106,12 @@
       control.style.display = control.style.display === 'none' ? 'block' : 'none';
     });
 
-    // Green pins
     const pins = [
       {
-        lat: 51.5074,
-        lng: -0.1278,
-        title: "London",
-        description: "Temperate climate region"
-      },
-      {
-        lat: 24.7136,
-        lng: 46.6753,
-        title: "Riyadh",
-        description: "Desert climate region"
+        lat: -7.046950,
+        lng: 39.271406,
+        title: "House 5",
+        description: "iHelp Eco Village, Mkuranga, Tanzania"
       }
     ];
 

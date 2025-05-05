@@ -29,58 +29,25 @@
       }
     ).addTo(map);
 
-    const climateColours = {
-      "Af": "#0000FF",
-      "Am": "#0078FF",
-      "Aw": "#46AAF0",
-      "BWh": "#FF0000",
-      "BWk": "#FF9696",
-      "BSh": "#F5A500",
-      "BSk": "#FFD864",
-      "Csa": "#FFFF00",
-      "Csb": "#C8C800",
-      "Csc": "#969600",
-      "Cwa": "#96FF96",
-      "Cwb": "#649600",
-      "Cwc": "#329632",
-      "Cfa": "#C8FF50",
-      "Cfb": "#64FF50",
-      "Cfc": "#32C800",
-      "Dsa": "#FF00FF",
-      "Dsb": "#C800C8",
-      "Dsc": "#963296",
-      "Dsd": "#969696",
-      "Dwa": "#AAB0FF",
-      "Dwb": "#5A78DC",
-      "Dwc": "#4B50B4",
-      "Dwd": "#320087",
-      "Dfa": "#00FFFF",
-      "Dfb": "#37C8FF",
-      "Dfc": "#007D7D",
-      "Dfd": "#00465F",
-      "ET": "#B2B2B2",
-      "EF": "#666666"
-    };
-
     let climateLayer;
 
-    fetch('koppen.json')
+    fetch('./koppen.json')
       .then(res => res.json())
       .then(data => {
         climateLayer = L.geoJSON(data, {
-          style: feature => {
-            const code = feature.properties.climate.split(" ")[0]; // Extract 3-letter code
-            return {
-              color: climateColours[code] || "#888",
-              weight: 0.5,
-              fillOpacity: 1
-            };
-          },
+          style: feature => ({
+            color: feature.properties.stroke || "#555",
+            fillColor: feature.properties.fill || "#999",
+            weight: feature.properties["stroke-width"] || 0.3,
+            fillOpacity: feature.properties["fill-opacity"] || 0.6
+          }),
           onEachFeature: (feature, layer) => {
-            layer.bindPopup(`<strong>Climate:</strong> ${feature.properties.climate}`);
+            const label = feature.properties.name || "No label";
+            layer.bindPopup(`<strong>Region:</strong> ${label}`);
           }
         }).addTo(map);
 
+        // Optional layer toggle
         L.control.layers(null, { "Köppen-Geiger Climate Zones": climateLayer }).addTo(map);
       });
 
@@ -90,13 +57,13 @@
         lat: 51.5074,
         lng: -0.1278,
         title: "London",
-        description: "Temperate oceanic climate (Cfb)"
+        description: "Temperate climate region"
       },
       {
         lat: 24.7136,
         lng: 46.6753,
         title: "Riyadh",
-        description: "Hot desert climate (BWh)"
+        description: "Desert climate region"
       }
     ];
 
